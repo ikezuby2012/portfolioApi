@@ -43,7 +43,21 @@ app.use("/api", limiter);
 //ping if api is working
 app.get("/", (req, res) => {
     res.send("hello world");
-})
+});
+//cors again
+const allowedOrigins = ["http://localhost:3000", "https://zubypure.vercel.app"];
+app.use(function (req, res, next) {
+    let origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+    }
+
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
     next();

@@ -17,7 +17,13 @@ const AppError = require("./utils/AppError");
 // //<-- serving static files
 // app.use(express.static(`${__dirname}/public`));
 //cors
-app.use(cors());
+const corsOptions ={
+    origin:'*', 
+    credentials:true,          
+    optionSuccessStatus:200,
+ }
+ 
+ app.use(cors(corsOptions)) 
 //<-- parsing data to the backend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
